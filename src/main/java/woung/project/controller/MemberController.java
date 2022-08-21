@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import woung.project.domain.Member;
 import woung.project.repository.MemberRepository;
+import woung.project.repository.MemoryMemberRepository;
 import woung.project.service.MemberService;
 
 @Controller
@@ -15,6 +16,8 @@ public class MemberController {
     @Autowired
     private final MemberService memberService;
 
+    @Autowired
+    private MemberRepository memberRepository;
     @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
@@ -43,10 +46,10 @@ public class MemberController {
     }
 
     @GetMapping("/member/welcome")
-    public String welcome(MemberRepository memberRepository,Model model){
+    public String welcome(Model model){
 
         model.addAttribute("user",memberRepository.findAll());
-        return "member/welcome.html";
+        return "member/welcome";
     }
 
     @GetMapping("/member/find") // 회원조회
